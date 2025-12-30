@@ -86,7 +86,7 @@ static cc_string Backend_GetError(SCRIPTING_ARGS) {
 static void Backend_RaiseVoid(const char* groupName, const char* funcName) {
 	JSPlugin_RaiseCommonBegin
 		duk_int_t ret = duk_pcall(ctx, 0);
-		if (ret != 0) JSPlugin_LogError(ctx, "running callback", groupName, funcName);
+		if (ret != 0) Scripting_LogError(ctx, "running callback", groupName, funcName);
 	JSPlugin_RaiseCommonEnd
 }
 
@@ -95,7 +95,7 @@ static void Backend_RaiseChat(const char* groupName, const char* funcName, const
 		duk_push_lstring(ctx, msg->buffer, msg->length);
 		duk_push_int(ctx, msgType);
 		duk_int_t ret = duk_pcall(ctx, 2);
-		if (ret != 0) JSPlugin_LogError(ctx, "running callback", groupName, funcName);
+		if (ret != 0) Scripting_LogError(ctx, "running callback", groupName, funcName);
 	JSPlugin_RaiseCommonEnd
 }
 
@@ -146,7 +146,7 @@ static void Backend_Load(const cc_string* path, void* obj, int is_dir) {
 	duk_push_lstring(ctx, mem.data, mem.len);
 
 	if (duk_peval(ctx) != 0) {
-		JSPlugin_LogError(ctx, "executing script", path, NULL);
+		Scripting_LogError(ctx, "executing script", path, NULL);
 		duk_destroy_heap(ctx); return;
 	}	
 
@@ -162,7 +162,7 @@ static void Backend_ExecScript(const cc_string* script) {
 	duk_push_lstring(ctx, script->buffer, script->length);
 
 	if (duk_peval(ctx) != 0) {
-		JSPlugin_LogError(ctx, "loading script", script, NULL);
+		Scripting_LogError(ctx, "loading script", script, NULL);
 	}
 	// TODO: Compile and call
 	duk_destroy_heap(ctx);

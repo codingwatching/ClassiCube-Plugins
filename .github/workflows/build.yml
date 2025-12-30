@@ -52,7 +52,7 @@ jobs:
           LIN32_CC: "gcc -m32"
           LIN64_CC: "gcc -m64"
           INCS:  "-I ./ClassiCube-master/src/"
-          FLAGS: "-O1 -g -fno-stack-protector -fno-math-errno -Qn -nostartfiles -Wl,--entry=0 -shared -fPIC"
+          FLAGS: "-O1 -g -fno-stack-protector -fno-math-errno -Qn -nostartfiles -Wl,--entry=0 -shared -fPIC -Werror"
         run: |         
          cd ${{ matrix.directory }}
          ${{ env.LIN32_CC }} *.c ${{ env.INCS }} ${{ env.FLAGS }} -o ${{ matrix.out_name }}_32.so
@@ -72,5 +72,12 @@ jobs:
           DEST_NAME:   '${{ matrix.out_name }}_linux64.so'
           GROUP_NAME:  '${{ matrix.out_name }}'
           GH_TOKEN:    '${{ secrets.GITHUB_TOKEN }}'
+
+
+      - uses: ./.github/actions/notify_failure
+        if: failure()
+        with:
+          NOTIFY_MESSAGE: 'Failed to produce ${{ matrix.out_name }} plugin for Linux'
+          WEBHOOK_URL: '${{ secrets.WEBHOOK_URL }}'
  
       
