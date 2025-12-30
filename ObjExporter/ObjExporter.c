@@ -5,6 +5,7 @@
 #include "ExtMath.h"
 #include "Vectors.h"
 #include "Chat.h"
+#include "Commands.h"
 #include "Stream.h"
 #include "TexturePack.h"
 #include "World.h"

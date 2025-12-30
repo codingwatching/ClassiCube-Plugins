@@ -18,6 +18,7 @@
 #include "Entity.h"
 #include "ExtMath.h"
 #include "Chat.h"
+#include "Commands.h"
 #include "Stream.h"
 #include "TexturePack.h"
 #include "World.h"
@@ -72,9 +73,9 @@ static void      Scripting_FreeBuf(sc_buffer* buf);
 static cc_string CanModifyBlock(int x, int y, int z, int newBlock) {
 	struct LocalPlayer* p = GetPlayer();
 	float reach = p->ReachDistance + 1;
-	float dx    = x - p->Base.Position.X;
-	float dy    = y - p->Base.Position.Y;
-	float dz    = z - p->Base.Position.Z;
+	float dx    = x - p->Base.Position.x;
+	float dy    = y - p->Base.Position.y;
+	float dz    = z - p->Base.Position.z;
 
 	if (dx * dx + dy * dy + dz * dz >= reach * reach)
 		return (cc_string)String_FromConst("Coordinates too far away from player");
@@ -136,22 +137,22 @@ static SCRIPTING_RESULT CC_Camera_IsThird(SCRIPTING_ARGS) {
 }
 
 static SCRIPTING_RESULT CC_Camera_GetX(SCRIPTING_ARGS) {
-	Scripting_ReturnNum(Camera.CurrentPos.X);
+	Scripting_ReturnNum(Camera.CurrentPos.x);
 }
 static SCRIPTING_RESULT CC_Camera_GetY(SCRIPTING_ARGS) {
-	Scripting_ReturnNum(Camera.CurrentPos.Y);
+	Scripting_ReturnNum(Camera.CurrentPos.y);
 }
 static SCRIPTING_RESULT CC_Camera_GetZ(SCRIPTING_ARGS) {
-	Scripting_ReturnNum(Camera.CurrentPos.Z);
+	Scripting_ReturnNum(Camera.CurrentPos.z);
 }
 
 static SCRIPTING_RESULT CC_Camera_GetYaw(SCRIPTING_ARGS) {
 	Vec2 ori = Camera.Active->GetOrientation();
-	Scripting_ReturnNum(ori.X * MATH_RAD2DEG);
+	Scripting_ReturnNum(ori.x * MATH_RAD2DEG);
 }
 static SCRIPTING_RESULT CC_Camera_GetPitch(SCRIPTING_ARGS) {
 	Vec2 ori = Camera.Active->GetOrientation();
-	Scripting_ReturnNum(ori.Y * MATH_RAD2DEG);
+	Scripting_ReturnNum(ori.y * MATH_RAD2DEG);
 }
 
 static SCRIPTING_FUNC cameraFuncs[] = {
@@ -339,15 +340,15 @@ static SCRIPTING_RESULT CC_Player_GetReach(SCRIPTING_ARGS) {
 
 static SCRIPTING_RESULT CC_Player_GetX(SCRIPTING_ARGS) {
 	struct LocalPlayer* p = GetPlayer();
-	Scripting_ReturnNum(p->Base.Position.X);
+	Scripting_ReturnNum(p->Base.Position.x);
 }
 static SCRIPTING_RESULT CC_Player_GetY(SCRIPTING_ARGS) {
 	struct LocalPlayer* p = GetPlayer();
-	Scripting_ReturnNum(p->Base.Position.Y);
+	Scripting_ReturnNum(p->Base.Position.y);
 }
 static SCRIPTING_RESULT CC_Player_GetZ(SCRIPTING_ARGS) {
 	struct LocalPlayer* p = GetPlayer();
-	Scripting_ReturnNum(p->Base.Position.Z);
+	Scripting_ReturnNum(p->Base.Position.z);
 }
 
 static SCRIPTING_RESULT CC_Player_GetYaw(SCRIPTING_ARGS) {
@@ -552,7 +553,7 @@ static SCRIPTING_RESULT CC_Window_SetTitle(SCRIPTING_ARGS) {
 }
 
 static SCRIPTING_RESULT CC_Window_GetHandle(SCRIPTING_ARGS) {
-	Scripting_ReturnPtr(WindowInfo.Handle);
+	Scripting_ReturnPtr(WindowInfo.Handle.ptr);
 }
 
 static SCRIPTING_FUNC windowFuncs[] = {
