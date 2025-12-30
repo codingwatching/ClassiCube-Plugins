@@ -83,8 +83,8 @@ static cc_bool NotAllBelowAir(struct Entity* p) {
 	Vec3_Mul1(&size2, &p->Size, 2);
 	AABB_Make(&bb, &p->Position, &size2); // p->Size * 2
 
-	bb.Max.Y = p->Position.Y - 0.5f;
-	bb.Min.Y = p->Position.Y - 1.5f;
+	bb.Max.y = p->Position.y - 0.5f;
+	bb.Min.y = p->Position.y - 1.5f;
 	return Entity_TouchesAny(&bb, IsAirBlock);
 }
 #define BoxDesc_ExtBounds(x1,y1,z1,x2,y2,z2) (x1-0.5f)/16.0f,(y1-0.5f)/16.0f,(z1-0.5f)/16.0f, (x2+0.5f)/16.0f,(y2+0.5f)/16.0f,(z2+0.5f)/16.0f
@@ -358,7 +358,7 @@ static float TallPonyModel_GetEyeY(struct Entity* e) {
 }
 
 static void TallPonyModel_GetTransform(struct Entity* e, Vec3 pos, struct Matrix* m) {
-	pos.Y += (TALL_OFFSET / 16.0f) * e->ModelScale.Y;
+	pos.y += (TALL_OFFSET / 16.0f) * e->ModelScale.y;
 	Entity_GetTransform(e, pos, e->ModelScale, m);
 }
 
@@ -501,7 +501,7 @@ static void PonySitModel_Draw(struct Entity* p) {
 static float PonySitModel_GetEyeY(struct Entity* e) { return (21 + SIT_OFFSET) / 16.0f; }
 
 static void PonySitModel_GetTransform(struct Entity* e, Vec3 pos, struct Matrix* m) {
-	pos.Y += (SIT_OFFSET / 16.0f) * e->ModelScale.Y;
+	pos.y += (SIT_OFFSET / 16.0f) * e->ModelScale.y;
 	Entity_GetTransform(e, pos, e->ModelScale, m);
 }
 

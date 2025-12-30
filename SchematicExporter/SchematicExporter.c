@@ -4,6 +4,7 @@
 #include "Deflate.h"
 #include "Stream.h"
 #include "Chat.h"
+#include "Commands.h"
 #include "Game.h"
 #include "Funcs.h"
 #include "String.h"

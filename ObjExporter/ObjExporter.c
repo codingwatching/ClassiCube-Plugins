@@ -144,40 +144,40 @@ static void DumpTextures() {
 		texI[b] = i;
 
 		Unpack(GetTex(b, FACE_XMIN), &x, &y);
-		WriteTex((x + min.Z) * u, (y + min.Y) * v);
-		WriteTex((x + min.Z) * u, (y + max.Y) * v);
-		WriteTex((x + max.Z) * u, (y + max.Y) * v);
-		WriteTex((x + max.Z) * u, (y + min.Y) * v);
+		WriteTex((x + min.z) * u, (y + min.y) * v);
+		WriteTex((x + min.z) * u, (y + max.y) * v);
+		WriteTex((x + max.z) * u, (y + max.y) * v);
+		WriteTex((x + max.z) * u, (y + min.y) * v);
 
 		Unpack(GetTex(b, FACE_XMAX), &x, &y);
-		WriteTex((x + max.Z) * u, (y + min.Y) * v);
-		WriteTex((x + max.Z) * u, (y + max.Y) * v);
-		WriteTex((x + min.Z) * u, (y + max.Y) * v);
-		WriteTex((x + min.Z) * u, (y + min.Y) * v);
+		WriteTex((x + max.z) * u, (y + min.y) * v);
+		WriteTex((x + max.z) * u, (y + max.y) * v);
+		WriteTex((x + min.z) * u, (y + max.y) * v);
+		WriteTex((x + min.z) * u, (y + min.y) * v);
 
 		Unpack(GetTex(b, FACE_ZMIN), &x, &y);
-		WriteTex((x + max.X) * u, (y + min.Y) * v);
-		WriteTex((x + max.X) * u, (y + max.Y) * v);
-		WriteTex((x + min.X) * u, (y + max.Y) * v);
-		WriteTex((x + min.X) * u, (y + min.Y) * v);
+		WriteTex((x + max.x) * u, (y + min.y) * v);
+		WriteTex((x + max.x) * u, (y + max.y) * v);
+		WriteTex((x + min.x) * u, (y + max.y) * v);
+		WriteTex((x + min.x) * u, (y + min.y) * v);
 
 		Unpack(GetTex(b, FACE_ZMAX), &x, &y);
-		WriteTex((x + min.X) * u, (y + min.Y) * v);
-		WriteTex((x + min.X) * u, (y + max.Y) * v);
-		WriteTex((x + max.X) * u, (y + max.Y) * v);
-		WriteTex((x + max.X) * u, (y + min.Y) * v);
+		WriteTex((x + min.x) * u, (y + min.y) * v);
+		WriteTex((x + min.x) * u, (y + max.y) * v);
+		WriteTex((x + max.x) * u, (y + max.y) * v);
+		WriteTex((x + max.x) * u, (y + min.y) * v);
 
 		Unpack(GetTex(b, FACE_YMIN), &x, &y);
-		WriteTex((x + min.X) * u, (y + max.Z) * v);
-		WriteTex((x + min.X) * u, (y + min.Z) * v);
-		WriteTex((x + max.X) * u, (y + min.Z) * v);
-		WriteTex((x + max.X) * u, (y + max.Z) * v);
+		WriteTex((x + min.x) * u, (y + max.z) * v);
+		WriteTex((x + min.x) * u, (y + min.z) * v);
+		WriteTex((x + max.x) * u, (y + min.z) * v);
+		WriteTex((x + max.x) * u, (y + max.z) * v);
 
 		Unpack(GetTex(b, FACE_YMAX), &x, &y);
-		WriteTex((x + min.X) * u, (y + max.Z) * v);
-		WriteTex((x + min.X) * u, (y + min.Z) * v);
-		WriteTex((x + max.X) * u, (y + min.Z) * v);
-		WriteTex((x + max.X) * u, (y + max.Z) * v);
+		WriteTex((x + min.x) * u, (y + max.z) * v);
+		WriteTex((x + min.x) * u, (y + min.z) * v);
+		WriteTex((x + max.x) * u, (y + min.z) * v);
+		WriteTex((x + max.x) * u, (y + max.z) * v);
 		i += 4 * 6;
 	}
 }
@@ -209,12 +209,12 @@ static void DumpVertices() {
 			for (int x = 0; x < width; x++) {
 				++i; int b = (blocks[i] | (blocks2[i] << 8)) & mask;
 				if (!include[b]) continue;
-				min.X = x; min.Y = y; min.Z = z;
-				max.X = x; max.Y = y; max.Z = z;
+				min.x = x; min.y = y; min.z = z;
+				max.x = x; max.y = y; max.z = z;
 
 				if (Blocks_->Draw[b] == DRAW_SPRITE) {
-					min.X += 2.50f / 16; min.Z += 2.50f / 16;
-					max.X += 13.5f / 16; max.Z += 13.5f / 16; max.Y += 1.0f;
+					min.x += 2.50f / 16; min.z += 2.50f / 16;
+					max.x += 13.5f / 16; max.z += 13.5f / 16; max.y += 1.0f;
 
 					int offsetType = Blocks_->SpriteOffset[b];
 					if (offsetType >= 6 && offsetType <= 7) {
@@ -224,37 +224,37 @@ static void DumpVertices() {
 						float valZ = Random_Range_(&spriteRng, -3, 3 + 1) / 16.0f;
 
 						const float stretch = 1.7f / 16.0f;
-						min.X += valX - stretch; max.X += valX + stretch;
-						min.Z += valZ - stretch; max.Z += valZ + stretch;
-						if (offsetType == 7) { min.Y -= valY; max.Y -= valY; }
+						min.x += valX - stretch; max.x += valX + stretch;
+						min.z += valZ - stretch; max.z += valZ + stretch;
+						if (offsetType == 7) { min.y -= valY; max.y -= valY; }
 					}
 
 					// Draw Z axis
-					WriteVertex(min.X, min.Y, min.Z);
-					WriteVertex(min.X, max.Y, min.Z);
-					WriteVertex(max.X, max.Y, max.Z);
-					WriteVertex(max.X, min.Y, max.Z);
+					WriteVertex(min.x, min.y, min.z);
+					WriteVertex(min.x, max.y, min.z);
+					WriteVertex(max.x, max.y, max.z);
+					WriteVertex(max.x, min.y, max.z);
 
 					// Draw Z axis mirrored
 					if (mirror) {
-						WriteVertex(max.X, min.Y, max.Z);
-						WriteVertex(max.X, max.Y, max.Z);
-						WriteVertex(min.X, max.Y, min.Z);
-						WriteVertex(min.X, min.Y, min.Z);
+						WriteVertex(max.x, min.y, max.z);
+						WriteVertex(max.x, max.y, max.z);
+						WriteVertex(min.x, max.y, min.z);
+						WriteVertex(min.x, min.y, min.z);
 					}
 
 					// Draw X axis
-					WriteVertex(min.X, min.Y, max.Z);
-					WriteVertex(min.X, max.Y, max.Z);
-					WriteVertex(max.X, max.Y, min.Z);
-					WriteVertex(max.X, min.Y, min.Z);
+					WriteVertex(min.x, min.y, max.z);
+					WriteVertex(min.x, max.y, max.z);
+					WriteVertex(max.x, max.y, min.z);
+					WriteVertex(max.x, min.y, min.z);
 
 					// Draw X axis mirrored
 					if (mirror) {
-						WriteVertex(max.X, min.Y, min.Z);
-						WriteVertex(max.X, max.Y, min.Z);
-						WriteVertex(min.X, max.Y, max.Z);
-						WriteVertex(min.X, min.Y, max.Z);
+						WriteVertex(max.x, min.y, min.z);
+						WriteVertex(max.x, max.y, min.z);
+						WriteVertex(min.x, max.y, max.z);
+						WriteVertex(min.x, min.y, max.z);
 					}
 					continue;
 				}
@@ -264,50 +264,50 @@ static void DumpVertices() {
 
 				// minx
 				if (x == 0 || all || !IsFaceHidden(b, (blocks[i - oneX] | (blocks2[i - oneX] << 8)) & mask, FACE_XMIN)) {
-					WriteVertex(min.X, min.Y, min.Z);
-					WriteVertex(min.X, max.Y, min.Z);
-					WriteVertex(min.X, max.Y, max.Z);
-					WriteVertex(min.X, min.Y, max.Z);
+					WriteVertex(min.x, min.y, min.z);
+					WriteVertex(min.x, max.y, min.z);
+					WriteVertex(min.x, max.y, max.z);
+					WriteVertex(min.x, min.y, max.z);
 				}
 
 				// maxx
 				if (x == maxX || all || !IsFaceHidden(b, (blocks[i + oneX] | (blocks2[i + oneX] << 8)) & mask, FACE_XMAX)) {
-					WriteVertex(max.X, min.Y, min.Z);
-					WriteVertex(max.X, max.Y, min.Z);
-					WriteVertex(max.X, max.Y, max.Z);
-					WriteVertex(max.X, min.Y, max.Z);
+					WriteVertex(max.x, min.y, min.z);
+					WriteVertex(max.x, max.y, min.z);
+					WriteVertex(max.x, max.y, max.z);
+					WriteVertex(max.x, min.y, max.z);
 				}
 
 				// minz
 				if (z == 0 || all || !IsFaceHidden(b, (blocks[i - oneZ] | (blocks2[i - oneZ] << 8)) & mask, FACE_ZMIN)) {
-					WriteVertex(min.X, min.Y, min.Z);
-					WriteVertex(min.X, max.Y, min.Z);
-					WriteVertex(max.X, max.Y, min.Z);
-					WriteVertex(max.X, min.Y, min.Z);
+					WriteVertex(min.x, min.y, min.z);
+					WriteVertex(min.x, max.y, min.z);
+					WriteVertex(max.x, max.y, min.z);
+					WriteVertex(max.x, min.y, min.z);
 				}
 
 				// maxz
 				if (z == maxZ || all || !IsFaceHidden(b, (blocks[i + oneZ] | (blocks2[i + oneZ] << 8)) & mask, FACE_ZMAX)) {
-					WriteVertex(min.X, min.Y, max.Z);
-					WriteVertex(min.X, max.Y, max.Z);
-					WriteVertex(max.X, max.Y, max.Z);
-					WriteVertex(max.X, min.Y, max.Z);
+					WriteVertex(min.x, min.y, max.z);
+					WriteVertex(min.x, max.y, max.z);
+					WriteVertex(max.x, max.y, max.z);
+					WriteVertex(max.x, min.y, max.z);
 				}
 
 				// miny
 				if (y == 0 || all || !IsFaceHidden(b, (blocks[i - oneY] | (blocks2[i - oneY] << 8)) & mask, FACE_YMIN)) {
-					WriteVertex(min.X, min.Y, min.Z);
-					WriteVertex(min.X, min.Y, max.Z);
-					WriteVertex(max.X, min.Y, max.Z);
-					WriteVertex(max.X, min.Y, min.Z);
+					WriteVertex(min.x, min.y, min.z);
+					WriteVertex(min.x, min.y, max.z);
+					WriteVertex(max.x, min.y, max.z);
+					WriteVertex(max.x, min.y, min.z);
 				}
 
 				// maxy
 				if (y == maxY || all || !IsFaceHidden(b, (blocks[i + oneY] | (blocks2[i + oneY] << 8)) & mask, FACE_YMAX)) {
-					WriteVertex(min.X, max.Y, min.Z);
-					WriteVertex(min.X, max.Y, max.Z);
-					WriteVertex(max.X, max.Y, max.Z);
-					WriteVertex(max.X, max.Y, min.Z);
+					WriteVertex(min.x, max.y, min.z);
+					WriteVertex(min.x, max.y, max.z);
+					WriteVertex(max.x, max.y, max.z);
+					WriteVertex(max.x, max.y, min.z);
 				}
 			}
 		}

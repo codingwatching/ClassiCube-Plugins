@@ -5,28 +5,28 @@
 // The proper way would be to add 'additional include directories' and 'additional libs' in Visual Studio Project properties
 // Or, you can just be lazy and change these paths for your own system. 
 // You must compile ClassiCube in both x86 and x64 configurations to generate the .lib file.
-#include "../../ClassicalSharp/src/PluginAPI.h"
+#include "PluginAPI.h"
 #if defined _WIN64
 	#pragma comment(lib, "../../../../ClassicalSharp/src/x64/Debug/ClassiCube.lib")
 #elif defined _WIN32
 	#pragma comment(lib, "../../../../ClassicalSharp/src/x86/Debug/ClassiCube.lib")
 #endif
 
-#include "../../ClassicalSharp/src/Game.h"
-#include "../../ClassicalSharp/src/String.h"
-#include "../../ClassicalSharp/src/Block.h"
-#include "../../ClassicalSharp/src/Entity.h"
-#include "../../ClassicalSharp/src/ExtMath.h"
-#include "../../ClassicalSharp/src/Chat.h"
-#include "../../ClassicalSharp/src/Stream.h"
-#include "../../ClassicalSharp/src/TexturePack.h"
-#include "../../ClassicalSharp/src/World.h"
-#include "../../ClassicalSharp/src/Funcs.h"
-#include "../../ClassicalSharp/src/Event.h"
-#include "../../ClassicalSharp/src/Server.h"
-#include "../../ClassicalSharp/src/Window.h"
-#include "../../ClassicalSharp/src/Camera.h"
-#include "../../ClassicalSharp/src/Inventory.h"
+#include "Game.h"
+#include "String.h"
+#include "Block.h"
+#include "Entity.h"
+#include "ExtMath.h"
+#include "Chat.h"
+#include "Stream.h"
+#include "TexturePack.h"
+#include "World.h"
+#include "Funcs.h"
+#include "Event.h"
+#include "Server.h"
+#include "Window.h"
+#include "Camera.h"
+#include "Inventory.h"
 
 static void Backend_RaiseVoid(const char* groupName, const char* funcName);
 static void Backend_RaiseChat(const char* groupName, const char* funcName, const cc_string* msg, int msgType);
