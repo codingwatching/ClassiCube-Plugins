@@ -167,9 +167,9 @@ static lua_State* LuaPlugin_New(void) {
 	return L;
 }
 
-static void Backend_Load(const cc_string* origName, void* obj) {
+static void Backend_Load(const cc_string* origName, void* obj, int is_dir) {
 	static cc_string ext = String_FromConst(".lua");
-	if (!String_CaselessEnds(origName, &ext)) return;
+	if (is_dir || !String_CaselessEnds(origName, &ext)) return;
 	cc_string name; char nameBuffer[601];
 	int res;
 

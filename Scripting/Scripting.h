@@ -32,7 +32,7 @@
 static void Backend_RaiseVoid(const char* groupName, const char* funcName);
 static void Backend_RaiseChat(const char* groupName, const char* funcName, const cc_string* msg, int msgType);
 
-static void Backend_Load(const cc_string* origName, void* obj);
+static void Backend_Load(const cc_string* origName, void* obj, int is_dir);
 static void Backend_ExecScript(const cc_string* script);
 static void Backend_Init(void);
 // retrieves last error from the scripting context
@@ -611,7 +611,9 @@ static cc_result Scripting_LoadFile(const cc_string* path, sc_buffer* mem) {
 
 static void Scripting_Init(void) {
 	const static cc_string dir = String_FromConst(SCRIPTING_DIRECTORY);
-	Directory_Create(&dir);
+	cc_filepath path;
+	Platform_EncodePath(&path, &dir);
+	Directory_Create2(&path);
 
 	Backend_Init();
 	Directory_Enum(&dir, NULL, Backend_Load);

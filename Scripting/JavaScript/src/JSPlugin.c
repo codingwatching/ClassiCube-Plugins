@@ -131,9 +131,9 @@ static duk_context* JSPlugin_New(void) {
 	return ctx;
 }
 
-static void Backend_Load(const cc_string* path, void* obj) {
+static void Backend_Load(const cc_string* path, void* obj, int is_dir) {
 	static cc_string ext = String_FromConst(".js");
-	if (!String_CaselessEnds(path, &ext)) return;
+	if (is_dir || !String_CaselessEnds(path, &ext)) return;
 	cc_result res;
 
 	sc_buffer mem;

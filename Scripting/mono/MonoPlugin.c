@@ -135,9 +135,9 @@ static void NETPlugin_Register(void) {
 	NETPlugin_RegisterModule("Window", windowFuncs);
 }
 
-static void Backend_Load(const cc_string* path, void* obj) {
+static void Backend_Load(const cc_string* path, void* obj, int is_dir) {
 	static cc_string ext = String_FromConst(".dll");
-	if (!String_CaselessEnds(path, &ext)) return;
+	if (is_dir || !String_CaselessEnds(path, &ext)) return;
 	int res;
 	
 	char buffer[256]; cc_string str;

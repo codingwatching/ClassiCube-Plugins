@@ -146,7 +146,7 @@ static void RunScript(const char* script) {
 			"executing script", NULL, NULL);
 }
 
-static void Backend_Load(const cc_string* path, void* obj) {
+static void Backend_Load(const cc_string* path, void* obj, int is_dir) {
 }
 
 static void Backend_ExecScript(const cc_string* script) {
