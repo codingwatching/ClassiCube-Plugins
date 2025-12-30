@@ -21,8 +21,8 @@ jobs:
 
 
 #============================================
-# =================== LINUX =================
-# ===========================================
+#==================== LINUX =================
+#============================================
   build_linux:
     needs: get_plugins    
     timeout-minutes: 10
@@ -52,7 +52,7 @@ jobs:
           LIN32_CC: "gcc -m32"
           LIN64_CC: "gcc -m64"
           INCS:  "-I ./ClassiCube-master/src/"
-          FLAGS: "-O1 -g -fno-stack-protector -fno-math-errno -Qn -nostartfiles -Wl,--entry=0 -shared -fPIC -Werror"
+          FLAGS: "-O1 -g -fno-stack-protector -fno-math-errno -Qn -fvisibility=hidden -nostartfiles -Wl,--entry=0 -shared -fPIC -Werror"
         run: |         
          cd ${{ matrix.directory }}
          ${{ env.LIN32_CC }} *.c ${{ env.INCS }} ${{ env.FLAGS }} -o ${{ matrix.out_name }}_32.so
@@ -79,5 +79,51 @@ jobs:
         with:
           NOTIFY_MESSAGE: 'Failed to produce ${{ matrix.out_name }} plugin for Linux'
           WEBHOOK_URL: '${{ secrets.WEBHOOK_URL }}'
- 
-      
+
+
+#============================================
+#==================== MACOS =================
+#============================================
+  build_macos:
+    needs: get_plugins    
+    timeout-minutes: 10
+    runs-on: macos-latest
+    strategy:
+      max-parallel: 1
+      matrix: ${{fromJson(needs.get_plugins.outputs.matrix)}}
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download source
+        run: |
+         cd ${{ matrix.directory }}
+         wget github.com/ClassiCube/ClassiCube/archive/master.zip
+         unzip -q master.zip
+
+      - name: Compile plugin
+        env:
+          MACINT_CC: "clang -arch x86_64"
+          MACARM_CC: "clang -arch arm64"
+          INCS:  "-I ./ClassiCube-master/src/"
+          FLAGS: "-O1 -g -fno-stack-protector -fno-math-errno -Qn -shared -Werror -undefined dynamic_lookup"
+        run: |         
+         cd ${{ matrix.directory }}
+         ${{ env.MACINT_CC }} *.c ${{ env.INCS }} ${{ env.FLAGS }} -o ${{ matrix.out_name }}_int64.dylib
+         ${{ env.MACARM_CC }} *.c ${{ env.INCS }} ${{ env.FLAGS }} -o ${{ matrix.out_name }}_arm64.dylib
+         lipo -create -output ${{ matrix.out_name }}_64.dylib ${{ matrix.out_name }}_int64.dylib ${{ matrix.out_name }}_arm64.dylib
+
+
+      - uses: ./.github/actions/upload_build
+        with:
+          SOURCE_FILE: '${{ matrix.directory }}/${{ matrix.out_name }}_64.dylib'
+          DEST_NAME:   '${{ matrix.out_name }}_macos64.so'
+          GROUP_NAME:  '${{ matrix.out_name }}'
+          GH_TOKEN:    '${{ secrets.GITHUB_TOKEN }}'
+
+
+      - uses: ./.github/actions/notify_failure
+        if: failure()
+        with:
+          NOTIFY_MESSAGE: 'Failed to produce ${{ matrix.out_name }} plugin for macOS'
+          WEBHOOK_URL: '${{ secrets.WEBHOOK_URL }}'

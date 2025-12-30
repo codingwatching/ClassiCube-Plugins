@@ -30,7 +30,7 @@ static cc_string Scripting_GetStr(SCRIPTING_ARGS, int arg) {
 	cc_string str;
 	size_t len;
 
-	str.buffer   = lua_tolstring(L, arg + 1, &len);
+	str.buffer   = (char*)lua_tolstring(L, arg + 1, &len);
 	str.length   = len;
 	str.capacity = 0;
 	return str;
