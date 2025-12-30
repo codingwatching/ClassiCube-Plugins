@@ -1,0 +1,39 @@
+name: Upload and publish
+inputs:
+  SOURCE_FILE:
+    description: 'Path to file to upload'
+    required: true
+    type: string
+  DEST_NAME:
+    description: 'Name to use for the uploaded artifact'
+    required: true
+    type: string
+  GROUP_NAME:
+    description: 'Release group name'
+    required: true
+    type: string
+  GH_TOKEN:
+    description: 'Github PAT'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.DEST_NAME }}
+        path: ${{ inputs.SOURCE_FILE }}
+        if-no-files-found: error
+
+    - name: Do release
+      uses: svenstaro/upload-release-action@v2
+      env:
+        GITHUB_TOKEN: ${{ inputs.GH_TOKEN }}
+      with:
+        tag: ${{ inputs.GROUP_NAME }}
+        repo_token: ${{ inputs.GH_TOKEN }}
+        file: ${{ inputs.SOURCE_FILE }}
+        asset_name: ${{ inputs.DEST_NAME }}
+        body: Download the appropriate file for your operating system
+        overwrite: true

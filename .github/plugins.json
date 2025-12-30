@@ -1,0 +1,13 @@
+{
+"include":
+	[
+		{
+			"directory": "Pony", 
+			"out_name" : "Pony"
+		},
+		{
+			"directory": "SchematicExporter", 
+			"out_name" : "SchematicExporter"
+		}
+	]
+}
