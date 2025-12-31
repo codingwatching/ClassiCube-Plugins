@@ -49,7 +49,7 @@ static sc_buffer Scripting_GetBuf(SCRIPTING_ARGS, int arg) {
 	int i, idx = arg + 1, type = lua_type(L, idx);
 
 	if (type == LUA_TSTRING) {
-		buffer.data = (char*)lua_tolstring(L, idx, &len);
+		buffer.data = (cc_uint8*)lua_tolstring(L, idx, &len);
 		buffer.len  = len;
 	} else if (type == LUA_TTABLE) {
 		buffer.len  = lua_rawlen(L, idx);

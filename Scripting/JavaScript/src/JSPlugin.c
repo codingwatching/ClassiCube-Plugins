@@ -143,7 +143,7 @@ static void Backend_Load(const cc_string* path, void* obj, int is_dir) {
 	if (res) return;
 
 	duk_context* ctx = JSPlugin_New();
-	duk_push_lstring(ctx, mem.data, mem.len);
+	duk_push_lstring(ctx, (char*)mem.data, mem.len);
 
 	if (duk_peval(ctx) != 0) {
 		Scripting_LogError(ctx, "executing script", path, NULL);

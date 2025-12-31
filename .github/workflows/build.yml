@@ -63,7 +63,7 @@ jobs:
           WIN32_CC: "i686-w64-mingw32-gcc"
           WIN64_CC: "x86_64-w64-mingw32-gcc"
           INCS:  "-I ./ClassiCube-master/src/"
-          FLAGS: "-O1 -s -fno-stack-protector -fno-math-errno -Qn -Werror -L. -lClassiCube"
+          FLAGS: "-O1 -shared -s -fno-stack-protector -fno-math-errno -Qn -Werror -L. -lClassiCube"
         run: |         
          cd ${{ matrix.directory }}
          WIN_FLAGS="${{ env.FLAGS }}"
@@ -192,7 +192,7 @@ jobs:
           MACINT_CC: "clang -arch x86_64"
           MACARM_CC: "clang -arch arm64"
           INCS:  "-I ./ClassiCube-master/src/"
-          FLAGS: "-O1 -g -fno-stack-protector -fno-math-errno -Qn -shared -Werror -undefined dynamic_lookup"
+          FLAGS: "-O1 -g -fno-stack-protector -fno-math-errno -Qn -shared -Werror -undefined dynamic_lookup -Wno-string-plus-int"
         run: |         
          cd ${{ matrix.directory }}
          ${{ env.MACINT_CC }} *.c ${{ env.INCS }} ${{ env.FLAGS }} -o ${{ matrix.out_name }}_int64.dylib
