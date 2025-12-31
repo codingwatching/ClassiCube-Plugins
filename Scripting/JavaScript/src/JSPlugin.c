@@ -23,7 +23,7 @@ static cc_string Scripting_GetStr(SCRIPTING_ARGS, int arg) {
 	cc_string str;
 	duk_size_t len;
 
-	str.buffer   = duk_to_lstring(ctx, arg, &len);
+	str.buffer   = (char*)duk_to_lstring(ctx, arg, &len);
 	str.length   = len;
 	str.capacity = 0;
 	return str;

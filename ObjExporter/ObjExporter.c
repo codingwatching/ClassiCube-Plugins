@@ -9,7 +9,7 @@
 #include "Stream.h"
 #include "TexturePack.h"
 #include "World.h"
-#include "String.h"
+#include "String_.h"
 
 
 /*########################################################################################################################*

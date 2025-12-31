@@ -7,7 +7,7 @@
 #include "Commands.h"
 #include "Game.h"
 #include "Funcs.h"
-#include "String.h"
+#include "String_.h"
 
 
 /*########################################################################################################################*

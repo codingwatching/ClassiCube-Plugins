@@ -13,7 +13,7 @@
 #endif
 
 #include "Game.h"
-#include "String.h"
+#include "String_.h"
 #include "Block.h"
 #include "Entity.h"
 #include "ExtMath.h"

@@ -1,11 +1,8 @@
 #include "imgui.h"
+
+#include "../ClassiCube/src/PluginAPI.h"
 #ifdef _WIN32
-#define CC_API __declspec(dllimport)
-#define CC_VAR __declspec(dllimport)
 #pragma comment(lib, "C:/Tools/Git/repos/ClassiCube/src/x86/Debug/ClassiCube.lib")
-#else
-#define CC_API
-#define CC_VAR
 #endif
 
 #include "../ClassiCube/src/Bitmap.h"
@@ -14,7 +11,7 @@
 #include "../ClassiCube/src/Game.h"
 #include "../ClassiCube/src/Graphics.h"
 #include "../ClassiCube/src/Input.h"
-#include "../ClassiCube/src/String.h"
+#include "../ClassiCube/src/String_.h"
 #include "../ClassiCube/src/Platform.h"
 #include "../ClassiCube/src/Window.h"
 static GfxResourceID font_tex;
@@ -248,13 +245,5 @@ static void TestPlugin_Init(void) {
     Event_Register_(&PointerEvents.Moved, NULL, OnPointerMoved);
 }
 
-#ifdef CC_BUILD_WIN
-    // special attribute to get symbols exported on Windows
-    #define PLUGIN_EXPORT extern "C" __declspec(dllexport)
-#else
-    // public symbols already exported when compiling shared lib with GCC
-    #define PLUGIN_EXPORT
-#endif
-
-PLUGIN_EXPORT int Plugin_ApiVersion = 1;
-PLUGIN_EXPORT struct IGameComponent Plugin_Component = { TestPlugin_Init };
+extern "C" PLUGIN_EXPORT int Plugin_ApiVersion = 1;
+extern "C" PLUGIN_EXPORT struct IGameComponent Plugin_Component = { TestPlugin_Init };

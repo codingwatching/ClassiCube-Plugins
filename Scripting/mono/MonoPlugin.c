@@ -1,6 +1,4 @@
-// Since we are building an external plugin dll, we need to import from ClassiCube lib instead of exporting these
-#define CC_API
-#define CC_VAR
+#include "src/PluginAPI.h"
 
 #include <mono/jit/jit.h>
 #include <mono/metadata/assembly.h>
@@ -10,7 +8,7 @@
 //  https://stackoverflow.com/questions/46434387/could-not-load-assembly-system-when-using-c-and-embedded-mono-to-call-to-c-sha
 //  https://www.mono-project.com/docs/advanced/embedding/
 
-#include "src/String.h"
+#include "src/String_.h"
 static MonoDomain* domain;
 
 typedef union mono_arg {
