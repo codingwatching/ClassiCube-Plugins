@@ -3,10 +3,9 @@ Type `/client gpu` in-game to see whether you need 32 or 64 bit version.
 
 ||||
 |--|--|--|
-[:arrow_down: Windows 32 bit](/SchematicExporter/bin/SchematicExporter_win32.dll?raw=true)|[:arrow_down: Windows 64 bit](/SchematicExporter/bin/SchematicExporter_win64.dll?raw=true)
-[:arrow_down: macOS 32 bit](/SchematicExporter/bin/SchematicExporter_mac32.dylib?raw=true)|[:arrow_down: macOS 64 bit](/SchematicExporter/bin/SchematicExporter_mac64.dylib?raw=true)
-[:arrow_down: Linux 32 bit](/SchematicExporter/bin/SchematicExporter_nix32.so?raw=true)|[:arrow_down: Linux 64 bit](/SchematicExporter/bin/SchematicExporter_nix64.so?raw=true)|[:arrow_down: Raspberry Pi](/SchematicExporter/bin/SchematicExporter_rpi.so?raw=true)
-
+[:arrow_down: Windows 32 bit](../../releases/download/SchematicExporter/SchematicExporter_windows_32.dll)|[:arrow_down: Windows 64 bit](../../releases/download/SchematicExporter/SchematicExporter_windows_64.dll)
+[:arrow_down: macOS 64 bit](../../releases/download/SchematicExporter/SchematicExporter_macos_64.dylib)
+[:arrow_down: Linux 32 bit](../../releases/download/SchematicExporter/SchematicExporter_linux_32.so)|[:arrow_down: Linux 64 bit](/../../releases/download/SchematicExporter/SchematicExporter_linux_64.so)|[:arrow_down: Raspberry Pi](../../releases/download/SchematicExporter/SchematicExporter_raspberrypi_32.so)
 ### Usage
 
 `/client schematicexport [filename]`
