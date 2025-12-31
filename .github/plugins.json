@@ -3,23 +3,28 @@
 	[
 		{
 			"directory": "Pony", 
-			"out_name" : "Pony"
+			"out_name" : "Pony",
+			"win_lite" : true
 		},
 		{
 			"directory": "SchematicExporter", 
-			"out_name" : "SchematicExporter"
+			"out_name" : "SchematicExporter",
+			"win_lite" : true
 		},
 		{
 			"directory": "ObjExporter", 
-			"out_name" : "ObjExporter"
+			"out_name" : "ObjExporter",
+			"win_lite" : true
 		},
 		{
 			"directory": "Scripting/Lua/src", 
-			"out_name" : "LuaScripting"
+			"out_name" : "LuaScripting",
+			"win_lite" : false
 		},
 		{
 			"directory": "Scripting/JavaScript/src", 
-			"out_name" : "JSScripting"
+			"out_name" : "JSScripting",
+			"win_lite" : false
 		}
 	]
 }

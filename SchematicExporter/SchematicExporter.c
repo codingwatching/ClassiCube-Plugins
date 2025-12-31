@@ -237,7 +237,7 @@ PLUGIN_EXPORT struct IGameComponent Plugin_Component = {
 #define NOMCX
 #define NOIME
 #include <windows.h>
-#define LoadSymbol(name) name ## _ = GetProcAddress(GetModuleHandleA(NULL), QUOTE(name))
+#define LoadSymbol(name) name ## _ = (void*)GetProcAddress(GetModuleHandleA(NULL), QUOTE(name))
 #else
 #define _GNU_SOURCE
 #include <dlfcn.h>
